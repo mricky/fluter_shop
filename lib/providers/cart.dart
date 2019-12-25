@@ -50,5 +50,10 @@ class Cart with ChangeNotifier{
     }
     notifyListeners();
   }
+
+  void remoteItem(String productId){
+      _items.remove(productId);
+      notifyListeners();
+  }
 }
 
