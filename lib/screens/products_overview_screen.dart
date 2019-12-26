@@ -3,6 +3,7 @@ import 'package:flutter_shop/wdigets/product_grid.dart';
 import 'package:provider/provider.dart';
 import '../wdigets/badge.dart';
 import '../providers/cart.dart';
+import '../wdigets/app_drawer.dart';
 import 'cart_screen.dart';
 enum FilterOptions{
     Favorites,
@@ -57,6 +58,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             )
           ],
         ),
+        drawer: AppDrawer(),
         body: ProductGrid(_showOnlyFavorites),
         
       );
