@@ -1,11 +1,10 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/providers/cart.dart';
 import '../providers/product.dart';
 import 'package:provider/provider.dart';
 import '../screens/product_detail_screen.dart';
-
-
-
 
 class ProductItem extends StatelessWidget {
 //   final String id;
@@ -54,6 +53,18 @@ class ProductItem extends StatelessWidget {
                   color: Theme.of(context).accentColor,
                  onPressed: (){
                    cart.addItem(product.id, product.price, product.title);
+                   //Scaffold.of(context).openDrawer();
+                   Scaffold.of(context).hideCurrentSnackBar();
+                   Scaffold.of(context).showSnackBar(
+                     SnackBar(
+                       content: Text('Added items to cart',),
+                       duration: Duration(seconds: 2),
+                       action: SnackBarAction(
+                         label: 'UNDO', 
+                         onPressed: (){
+                           cart.removeSingleItem(product.id);
+                         },),
+                       ));
                  },
                 ),
                 ),  
