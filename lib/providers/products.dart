@@ -69,7 +69,8 @@ class Products with ChangeNotifier {
       'imageUrl': product.imageUrl,
       'price': product.price,
       'isFavorite': product.isFavorite
-    }),).then((response){
+    }),)
+    .then((response){
       //print(response);
         print(json.decode(response.body));
         final newProduct = Product(
@@ -77,12 +78,13 @@ class Products with ChangeNotifier {
         description: product.description, 
         price: product.price,
         imageUrl: product.imageUrl,
-        id: json.decode(response.body)['name'],
-        );
+        id: json.decode(response.body)['name'],);
         _items.add(newProduct);
       // _items.insert(0, newProduct); // at the start of the list
         notifyListeners();
-     
+    }).catchError((error){
+        print(error);
+        throw error;
     });
 
     
