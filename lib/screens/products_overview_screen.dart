@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/wdigets/product_grid.dart';
 import 'package:provider/provider.dart';
@@ -5,6 +6,7 @@ import '../wdigets/badge.dart';
 import '../providers/cart.dart';
 import '../wdigets/app_drawer.dart';
 import 'cart_screen.dart';
+import '../providers/products.dart';
 enum FilterOptions{
     Favorites,
     All,
@@ -16,6 +18,21 @@ class ProductsOverviewScreen extends StatefulWidget {
 
 class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   var _showOnlyFavorites = false;
+  var _isInit = true;
+  @override
+  void initState() {
+    //Provider.of<Products>(context).fetchAndSetProduct(); WONT WORK;
+    super.initState();
+  }
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+     if(_isInit){
+        Provider.of<Products>(context).fetchAndSetProduct();
+     }
+     _isInit = false;
+    super.didChangeDependencies();
+  }
   @override
   Widget build(BuildContext context) {
     
