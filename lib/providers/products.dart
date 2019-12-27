@@ -61,9 +61,9 @@ class Products with ChangeNotifier {
   Product findById(String id){
         return _items.firstWhere((prod) => prod.id == id);
   }
-  void addProducts(Product product){
+  Future<void> addProducts(Product product){
     const url = 'https://flutter-shop-37221.firebaseio.com/products.json';
-    http.post(url,body: json.encode({
+    return http.post(url,body: json.encode({
       'title': product.title,
       'description': product.description,
       'imageUrl': product.imageUrl,
@@ -82,6 +82,7 @@ class Products with ChangeNotifier {
         _items.add(newProduct);
       // _items.insert(0, newProduct); // at the start of the list
         notifyListeners();
+     
     });
 
     
