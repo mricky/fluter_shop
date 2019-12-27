@@ -115,11 +115,24 @@ class Products with ChangeNotifier {
        throw error;
     }   
   }
-  void updatProduct(String id, Product newProduct){
+  Future<void> updatProduct(String id, Product newProduct) async{
     final productIndex = _items.indexWhere((prod) => prod.id == id);
     if(productIndex >= 0){
-         _items[productIndex] = newProduct;
+       var url = 'https://flutter-shop-37221.firebaseio.com/products/$id.json';
+       try{
+       await http.patch(url, body:json.encode({
+         'title': newProduct.title,
+         'description': newProduct.description,
+         'imageUrl':newProduct.imageUrl,
+         'price': newProduct.price,
+       }));
+        _items[productIndex] = newProduct; // update local juga
           notifyListeners();
+       }
+       catch(error){
+         //...
+         throw error;
+       }
     }
     else{
       print('.....');
