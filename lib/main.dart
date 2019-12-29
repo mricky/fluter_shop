@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(providers: [
           ChangeNotifierProvider.value(
-            value: Auth()
+            value: Auth(),
           ),
           ChangeNotifierProvider.value(
             value: Products(),
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             value: Orders(),
           ),
         ],
-        child: MaterialApp(
+        child: Consumer<Auth>(builder: (ctx, auth,_) => MaterialApp(
         title: 'My Shop',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Lato',
         ),
        // home: ProductsOverviewScreen(),
-        home: AuthScreen(),
+        home: auth.isAuth ? ProductsOverviewScreen() : AuthScreen(),
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),
@@ -52,6 +52,7 @@ class MyApp extends StatelessWidget {
           EditProductScreen.routeName: (ctx) => EditProductScreen(),
         },
       ), 
+    ),
     );
   }
 }

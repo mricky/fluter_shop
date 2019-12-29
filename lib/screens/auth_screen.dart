@@ -140,8 +140,8 @@ class _AuthCardState extends State<AuthCard> {
         _authData['email'],
         _authData['password']
         );
-
-    }
+      }
+     
     } on HttpEception catch(error){
         // exception dari firebase error such as, invalid password, invalid email
         // check string error yang dikirim oleh firebase
