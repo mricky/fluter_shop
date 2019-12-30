@@ -40,7 +40,8 @@ class Products with ChangeNotifier {
     // ),
 
   ];
-
+  final String authToken;
+  Products(this.authToken, this._items);
   List<Product> get items {
     // if(_showFavoritesOnly){
     //   return _items.where((productItem) => productItem.isFavorite).toList();
@@ -64,7 +65,7 @@ class Products with ChangeNotifier {
   }
   // online 
   Future<void> fetchAndSetProduct() async {
-    const url = 'https://flutter-shop-37221.firebaseio.com/products.json';
+    final url = 'https://flutter-shop-37221.firebaseio.com/products.json?auth=$authToken';
     try{
         // pola json return {xxx: {xx:xx,yy:yy}} 
         final response = await http.get(url);
