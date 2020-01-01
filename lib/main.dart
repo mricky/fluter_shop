@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_shop/providers/atuh.dart';
 import 'package:flutter_shop/providers/cart.dart';
-
 import './screens/cart_screen.dart';
 //import 'package:flutter_shop/models/product.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +14,7 @@ import './providers/atuh.dart';
 import './screens/orders_screen.dart';
 import './screens/user_products_screen.dart';
 import './screens/edit_product_screen.dart';
+import './screens/spash_screen.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -43,7 +43,16 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Lato',
         ),
        // home: ProductsOverviewScreen(),
-        home: auth.isAuth ? ProductsOverviewScreen() : AuthScreen(),
+        home: auth.isAuth
+         ? ProductsOverviewScreen() 
+         : FutureBuilder(
+            future: auth.tryAutoLogin(),
+            builder: (ctx, authResultSnapshot) =>
+                   authResultSnapshot.connectionState == 
+                          ConnectionState.waiting 
+                      ? SpashScreen() 
+                      : AuthScreen(),
+        ),
         routes: {
           ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
           CartScreen.routeName: (ctx) => CartScreen(),

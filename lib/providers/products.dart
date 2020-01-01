@@ -67,36 +67,40 @@ class Products with ChangeNotifier {
   // online 
   Future<void> fetchAndSetProduct([bool filterByUser = false]) async {
     final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
-    var url = 'https://flutter-shop-37221.firebaseio.com/products.json?auth=$authToken&$filterString';
-    try{
-        // pola json return {xxx: {xx:xx,yy:yy}} 
-        final response = await http.get(url);
-         //print(json.decode(response.body));
-        final extractedData = json.decode(response.body) as Map<String, dynamic>;
-        if(extractedData == null){
-          return;
-        }
-        final urlFav = 'https://flutter-shop-37221.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
-        final favoritesResponse = await http.get(urlFav);
-        final favoriteData = json.decode(favoritesResponse.body);
-    
-        final List<Product> loadedProduct = [];
-        extractedData.forEach((prodId, prodData){
-            loadedProduct.add(Product(
-              id: prodId,
-              title: prodData['title'],
-              description: prodData['description'],
-              price: prodData['price'],
-             // isFavorite: favoriteData == null ? false :  favoriteData[prodId],
-              imageUrl: prodData['imageUrl']
-            ));
-        });
-       _items = loadedProduct;
-       notifyListeners();
-    }
-    catch(error)
-    {
-      throw error;
+   var url =
+       'https://flutter-shop-37221.firebaseio.com/products.json?auth=$authToken&$filterString';
+    //  var url =
+    //     'https://flutter-shop-37221.firebaseio.com/products.json?auth=$authToken';
+       
+    try {
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+     
+      if (extractedData == null) {
+        return;
+      }
+      url =
+          'https://flutter-shop-37221.firebaseio.com/userFavorites/$userId.json?auth=$authToken';
+      final favoriteResponse = await http.get(url);
+      final favoriteData = json.decode(favoriteResponse.body);
+     //  print(favoriteData);
+      final List<Product> loadedProducts = [];
+      extractedData.forEach((prodId, prodData) {
+        loadedProducts.add(Product(
+          id: prodId,
+          title: prodData['title'],
+          description: prodData['description'],
+          price: prodData['price'],
+          // isFavorite:
+          //     favoriteData == null ? false : favoriteData[prodId] ?? false,
+          isFavorite: false,
+          imageUrl: prodData['imageUrl'],
+        ));
+      });
+      _items = loadedProducts;
+      notifyListeners();
+    } catch (error) {
+      throw (error);
     }
   }
   Future<void> addProducts(Product product) async{
