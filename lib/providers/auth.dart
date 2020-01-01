@@ -43,7 +43,7 @@ class Auth with ChangeNotifier{
       final responseData = json.decode(response.body);
 
       if(responseData['error'] != null){
-          throw HttpEception(responseData['error']['message']);
+          throw HttpException(responseData['error']['message']);
       }
       _token = responseData['idToken'];
       _userId = responseData['localId'];

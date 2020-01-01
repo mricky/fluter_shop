@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/providers/atuh.dart';
+import 'package:flutter_shop/providers/auth.dart';
 import 'package:flutter_shop/providers/cart.dart';
 import './screens/cart_screen.dart';
 //import 'package:flutter_shop/models/product.dart';
