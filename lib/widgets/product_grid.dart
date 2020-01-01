@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_shop/wdigets/product_item.dart';
+import '../widgets/product_item.dart';
 import 'package:provider/provider.dart';
 import '../providers/products.dart';
 

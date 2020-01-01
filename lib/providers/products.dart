@@ -1,3 +1,5 @@
+
+  
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import './product.dart';
@@ -65,7 +67,7 @@ class Products with ChangeNotifier {
         return _items.firstWhere((prod) => prod.id == id);
   }
   // online 
-  Future<void> fetchAndSetProduct([bool filterByUser = false]) async {
+  Future<void> fetchAndSetProducts([bool filterByUser = false]) async {
     final filterString = filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
    var url =
        'https://flutter-shop-37221.firebaseio.com/products.json?auth=$authToken&$filterString';
@@ -103,7 +105,7 @@ class Products with ChangeNotifier {
       throw (error);
     }
   }
-  Future<void> addProducts(Product product) async{
+  Future<void> addProduct(Product product) async{
     final url = 'https://flutter-shop-37221.firebaseio.com/products.json?auth=$authToken';
     try {
         final response = await http.post(url,body: json.encode({
@@ -131,7 +133,7 @@ class Products with ChangeNotifier {
        throw error;
     }   
   }
-  Future<void> updatProduct(String id, Product newProduct) async{
+  Future<void> updateProduct(String id, Product newProduct) async{
     final productIndex = _items.indexWhere((prod) => prod.id == id);
     if(productIndex >= 0){
        final url = 'https://flutter-shop-37221.firebaseio.com/products/$id.json?auth=$authToken';
@@ -174,3 +176,4 @@ class Products with ChangeNotifier {
        
   }
 }
+

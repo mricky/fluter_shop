@@ -95,7 +95,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       _isLoading = true;
     });
     if(_editedProduct.id != null){
-        await Provider.of<Products>(context, listen: false).updatProduct(_editedProduct.id,_editedProduct);
+        await Provider.of<Products>(context, listen: false).updateProduct(_editedProduct.id,_editedProduct);
         // setState(() {
         //   _isLoading = false;
         // });
@@ -105,7 +105,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
       try {
         await Provider.of<Products>(
             context, listen: false)
-            .addProducts(_editedProduct);
+            .addProduct(_editedProduct);
         } catch(error){
         print('tangkap error');
         await showDialog(
